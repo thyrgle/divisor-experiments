@@ -29,7 +29,7 @@ additiveStream = cycle [1, 1, -1, -1]
 
 -- | Kronkecker delta, return 0 if the integers are not the same, otherwise,
 -- | return the value of the integer.
-delta :: Integer -> Integer -> Integer
+delta :: (Eq n, Num n) => n -> n -> n
 delta n i
     | n == i = n
     | otherwise = 0
