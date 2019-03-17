@@ -17,22 +17,15 @@ pentagonals = map nthPentagonal integerStream
 -- | Provides a stream for representing a bijection from naturals to integers
 -- | i.e. [1, -1, 2, -2, ... ].
 integerStream :: [Integer]
-integerStream = map integerOrdering [1 .. ]
+integerStream = concatMap mirror [1 ..]
     where
-    integerOrdering n
-        | n `rem` 2 == 0 = (n `div` 2) * (-1)
-        | otherwise = (n `div` 2) + 1
-
+      mirror n = [n, -n]
 
 -- | Using Euler's formula for the divisor function, we see that each summand
 -- | alternates between two positive and two negative. This provides a stream
 -- | of 1 1 -1 -1 1 1 ... to utilze in assiting this property.
 additiveStream :: [Integer]
-additiveStream = map summandSign [0 .. ]
-    where
-    summandSign n
-        | n `rem` 4 >= 2 = -1
-        | otherwise = 1
+additiveStream = cycle [1, 1, -1, -1]
 
 -- | Kronkecker delta, return 0 if the integers are not the same, otherwise,
 -- | return the value of the integer.
