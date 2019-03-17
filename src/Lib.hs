@@ -19,7 +19,6 @@ pentagonals = map nthPentagonal integerStream
 integerStream :: [Integer]
 integerStream = map integerOrdering [1 .. ]
     where
-    integerOrdering :: Integer -> Integer
     integerOrdering n
         | n `rem` 2 == 0 = (n `div` 2) * (-1)
         | otherwise = (n `div` 2) + 1
@@ -31,7 +30,6 @@ integerStream = map integerOrdering [1 .. ]
 additiveStream :: [Integer]
 additiveStream = map summandSign [0 .. ]
     where
-    summandSign :: Integer -> Integer
     summandSign n
         | n `rem` 4 >= 2 = -1
         | otherwise = 1
@@ -56,13 +54,10 @@ divisorSum n
                                            (divisorStream n)
                                            (markPentagonal n))
     where
-    pentDual :: Integer -> [Integer]
     pentDual n = [ n - x | x <- pentagonals]
-    divisorStream :: Integer -> [Integer]
     divisorStream n = zipWith (*)
                               (map divisorSum (pentDual n))
                               additiveStream
-    markPentagonal :: Integer -> [Integer]
     markPentagonal n = zipWith (*)
                                (zipWith (delta) 
                                         pentagonals
